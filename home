@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+class home extends StatefulWidget {
+  const home({Key? key}) : super(key: key);
+
+  @override
+  _homeState createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  TextEditingController txt = TextEditingController();
+  var lst = [];
+  var gettext = "";
+
+  submit() {
+    setState(() {
+      lst.add(gettext);
+      print(lst);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200,
+            ),
+            TextField(
+                controller: txt,
+                onChanged: (value) {
+                  gettext = value;
+                }),
+            TextButton(
+              onPressed: () {
+                submit();
+                txt.clear();
+              },
+              child: Text("submit"),
+            ),
+            ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: lst.length,
+                itemBuilder: (context, index) {
+                  return Text("${lst[index]}");
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+}
